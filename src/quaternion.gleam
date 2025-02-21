@@ -1,5 +1,4 @@
 import gleam/float
-import gleam/io
 import gleam/list
 import gleam/result
 import gleam/string
@@ -116,38 +115,6 @@ pub fn rotate_vector(
   |> vec3.add(vec3.cross(q.imaginary, t))
 }
 
-/// Constructs the quaternion representing the rotation from v to w
-/// 
-/// https://stackoverflow.com/questions/1171849/finding-quaternion-representing-the-rotation-from-one-vector-to-another
-/// 
-/// Quaternion get_rotation_between(Vector3 u, Vector3 v)
-// {
-//   float k_cos_theta = dot(u, v);
-//   float k = sqrt(length_2(u) * length_2(v));
-
-//   if (k_cos_theta / k == -1)
-//   {
-//     // 180 degree rotation around any orthogonal vector
-//     return Quaternion(0, normalized(orthogonal(u)));
-//   }
-
-//   return normalized(Quaternion(k_cos_theta + k, cross(u, v)));
-// }
-pub fn rotation_from_to(
-  v: #(Float, Float, Float),
-  w: #(Float, Float, Float),
-) -> Quaternion {
-  let k_cos_theta = vec3.dot(v, w)
-  let k =
-    float.square_root(vec3.square_length(v) *. vec3.square_length(w))
-    |> result.unwrap(1.0)
-
-  case k_cos_theta /. k == -1.0 {
-    True -> Quaternion(0.0, vec3.normalize(vec3.orthogonal(v)))
-    _ -> normalize(Quaternion(k_cos_theta +. k, vec3.cross(v, w)))
-  }
-}
-
 /// Constructs the quaternion representing the given euler angle rotations (in radian)
 pub fn euler_angles(x: Float, y: Float, z: Float) -> Quaternion {
   let cos_x_2 = elementary.cos(x /. 2.0)
@@ -175,6 +142,7 @@ pub fn axis_angle(axis: #(Float, Float, Float), angle: Float) -> Quaternion {
   )
 }
 
+/// Asserts if quaternions are loosely equals
 pub fn loosely_equals(q: Quaternion, r: Quaternion, epsilon: Float) -> Bool {
   float.loosely_equals(q.real, r.real, epsilon)
   && float.loosely_equals(q.imaginary.0, r.imaginary.0, epsilon)
@@ -182,14 +150,12 @@ pub fn loosely_equals(q: Quaternion, r: Quaternion, epsilon: Float) -> Bool {
   && float.loosely_equals(q.imaginary.2, r.imaginary.2, epsilon)
 }
 
+/// Constructs a quaternion with only a real part
 pub fn from_real(r: Float) -> Quaternion {
   Quaternion(r, #(0.0, 0.0, 0.0))
 }
 
+/// Constructs a quaternion with only an imaginary part
 pub fn from_imaginary(i: #(Float, Float, Float)) -> Quaternion {
   Quaternion(0.0, i)
-}
-
-pub fn main() {
-  io.println("Hello from quaternion!")
 }

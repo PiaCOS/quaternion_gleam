@@ -1,5 +1,3 @@
-import gleam/float
-import gleam/result
 import gleam_community/maths/elementary
 import gleeunit
 import gleeunit/should
@@ -98,39 +96,6 @@ pub fn rotate_vector_parallel_test() {
   |> quaternion.rotate_vector(#(1.0, 1.0, 1.0))
   |> quaternion.from_imaginary
   |> quaternion.loosely_equals(Quaternion(0.0, #(1.0, 1.0, 1.0)), epsilon)
-  |> should.equal(True)
-}
-
-pub fn rotation_from_to_1_test() {
-  let a = #(1.0, 1.0, 1.0)
-  let b = #(-1.0, -1.0, -1.0)
-  let q = quaternion.rotation_from_to(a, b)
-
-  quaternion.rotate_vector(q, a)
-  |> quaternion.from_imaginary
-  |> quaternion.loosely_equals(quaternion.from_imaginary(b), epsilon)
-  |> should.equal(True)
-}
-
-pub fn rotation_from_to_2_test() {
-  let a = #(1.0, 1.0, 0.0)
-  let b = #(0.0, 1.0, 0.0)
-  let q = quaternion.rotation_from_to(a, b)
-
-  quaternion.rotate_vector(q, a)
-  |> quaternion.from_imaginary
-  |> quaternion.loosely_equals(quaternion.from_imaginary(b), epsilon)
-  |> should.equal(True)
-}
-
-pub fn rotation_from_to_3_test() {
-  let a = #(1.0, 0.0, 0.0)
-  let b = #(0.0, -1.0, 0.0)
-  let q = quaternion.rotation_from_to(a, b)
-
-  quaternion.rotate_vector(q, a)
-  |> quaternion.from_imaginary
-  |> quaternion.loosely_equals(quaternion.from_imaginary(b), epsilon)
   |> should.equal(True)
 }
 
