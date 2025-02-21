@@ -1,24 +1,15 @@
-# quaternion
+# README
 
-[![Package Version](https://img.shields.io/hexpm/v/quaternion)](https://hex.pm/packages/quaternion)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/quaternion/)
+A simple quaternion implementation made with and for *Gleam*. Heavily inspired by the *Rust* [quaternion](https://github.com/PistonDevelopers/quaternion) crate.
 
-```sh
-gleam add quaternion@1
-```
-```gleam
-import quaternion
+# License
 
-pub fn main() {
-  // TODO: An example of the project in use
-}
-```
+Licensed under either of:
 
-Further documentation can be found at <https://hexdocs.pm/quaternion>.
+Apache License, Version 2.0, (LICENSE-APACHE or http://www.apache.org/licenses/LICENSE-2.0)
+MIT license (LICENSE-MIT or http://opensource.org/licenses/MIT)
+at your option.
 
-## Development
+# Contribution
 
-```sh
-gleam run   # Run the project
-gleam test  # Run the tests
-```
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the work by you, as defined in the Apache-2.0 license, shall be dual licensed as above, without any additional terms or conditions.
