@@ -1,5 +1,5 @@
 name = "quaternion"
-version = "1.0.0"
+version = "1.0.1"
 
 description = "A simple quaternion implementation made with and for Gleam. Heavily inspired by the Rust quaternion crate."
 licences = ["Apache-2.0", "MIT"]

@@ -2,6 +2,12 @@
 
 A simple quaternion implementation made with and for *Gleam*. Heavily inspired by the *Rust* [quaternion](https://github.com/PistonDevelopers/quaternion) crate.
 
+# Installation
+
+```
+gleam add quaternion
+```
+
 # License
 
 Licensed under either of:
