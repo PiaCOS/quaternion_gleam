@@ -2,6 +2,7 @@ import gleam_community/maths/elementary
 import gleeunit
 import gleeunit/should
 import quaternion.{type Quaternion, Quaternion}
+import vec3
 
 pub fn main() {
   gleeunit.main()
@@ -28,50 +29,68 @@ pub fn to_string_test() {
 }
 
 pub fn add_test() {
-  Quaternion(1.0, #(2.0, 3.0, 4.0))
-  |> quaternion.add(Quaternion(1.1, #(-2.2, 3.3, -4.4)))
-  |> quaternion.loosely_equals(Quaternion(2.1, #(-0.2, 6.3, -0.4)), epsilon)
+  let q = Quaternion(1.0, #(2.0, 3.0, 4.0))
+  let r = Quaternion(1.1, #(-2.2, 3.3, -4.4))
+  let res = Quaternion(2.1, #(-0.2, 6.3, -0.4))
+  q
+  |> quaternion.add(r)
+  |> quaternion.loosely_equals(res, epsilon)
   |> should.equal(True)
 }
 
 pub fn substract_test() {
-  Quaternion(1.0, #(2.0, 3.0, 4.0))
-  |> quaternion.substract(Quaternion(1.1, #(-2.2, 3.3, -4.4)))
-  |> quaternion.loosely_equals(Quaternion(-0.1, #(4.2, -0.3, 8.4)), epsilon)
+  let q = Quaternion(1.0, #(2.0, 3.0, 4.0))
+  let r = Quaternion(1.1, #(-2.2, 3.3, -4.4))
+  let res = Quaternion(-0.1, #(4.2, -0.3, 8.4))
+  q
+  |> quaternion.substract(r)
+  |> quaternion.loosely_equals(res, epsilon)
   |> should.equal(True)
 }
 
 pub fn times_test() {
-  Quaternion(1.0, #(2.0, 3.0, 4.0))
-  |> quaternion.times(Quaternion(0.5, #(0.25, -1.0, 4.0)))
-  |> quaternion.loosely_equals(Quaternion(0.5, #(0.5, -3.0, 16.0)), epsilon)
+  let q = Quaternion(1.0, #(2.0, 3.0, 4.0))
+  let r = Quaternion(0.5, #(0.25, -1.0, 4.0))
+  let res = Quaternion(0.5, #(0.5, -3.0, 16.0))
+  q
+  |> quaternion.times(r)
+  |> quaternion.loosely_equals(res, epsilon)
   |> should.equal(True)
 }
 
 pub fn scale_test() {
-  Quaternion(1.0, #(2.0, 3.0, 4.0))
+  let q = Quaternion(1.0, #(2.0, 3.0, 4.0))
+  let res = Quaternion(-0.5, #(-1.0, -1.5, -2.0))
+  q
   |> quaternion.scale(-0.5)
-  |> quaternion.loosely_equals(Quaternion(-0.5, #(-1.0, -1.5, -2.0)), epsilon)
+  |> quaternion.loosely_equals(res, epsilon)
   |> should.equal(True)
 }
 
 pub fn dot_test() {
-  Quaternion(1.0, #(2.0, -2.0, -1.0))
-  |> quaternion.dot(Quaternion(-1.0, #(1.0, 2.0, -2.0)))
+  let q = Quaternion(1.0, #(2.0, -2.0, -1.0))
+  let r = Quaternion(-1.0, #(1.0, 2.0, -2.0))
+  q
+  |> quaternion.dot(r)
   |> should.equal(-1.0)
 }
 
 pub fn multiply_test() {
-  Quaternion(1.0, #(2.0, 3.0, 4.0))
-  |> quaternion.multiply(Quaternion(1.0, #(-1.0, 2.0, -2.0)))
-  |> quaternion.loosely_equals(Quaternion(5.0, #(-13.0, 5.0, 9.0)), epsilon)
+  let q = Quaternion(1.0, #(2.0, 3.0, 4.0))
+  let r = Quaternion(1.0, #(-1.0, 2.0, -2.0))
+  let res = Quaternion(5.0, #(-13.0, 5.0, 9.0))
+  q
+  |> quaternion.multiply(r)
+  |> quaternion.loosely_equals(res, epsilon)
   |> should.equal(True)
 }
 
 pub fn conjugate_test() {
-  Quaternion(1.0, #(2.0, 3.0, 4.0))
+  let q = Quaternion(1.0, #(2.0, 3.0, 4.0))
+  let q_conjugate = Quaternion(1.0, #(-2.0, -3.0, -4.0))
+  q
   |> quaternion.conjugate()
-  |> should.equal(Quaternion(1.0, #(-2.0, -3.0, -4.0)))
+  |> should.equal(q_conjugate)
 }
 
 pub fn square_length_test() {
@@ -81,35 +100,44 @@ pub fn square_length_test() {
 }
 
 pub fn rotate_vector_test() {
-  #(0.0, 1.0, 0.0)
+  let v = #(0.0, 1.0, 0.0)
+  let v_parallel = #(1.0, 1.0, 1.0)
+  let res = #(-1.0, 1.0, -1.0)
+  v
   |> quaternion.axis_angle(elementary.pi())
-  |> quaternion.rotate_vector(#(1.0, 1.0, 1.0))
-  |> quaternion.from_imaginary
-  |> quaternion.loosely_equals(Quaternion(0.0, #(-1.0, 1.0, -1.0)), epsilon)
+  |> quaternion.rotate_vector(v_parallel)
+  |> vec3.loosely_equals(res, epsilon)
   |> should.equal(True)
 }
 
 /// When vectors are parallel the output vector should be the same
 pub fn rotate_vector_parallel_test() {
-  #(1.0, 1.0, 1.0)
+  let v = #(1.0, 1.0, 1.0)
+  let w = vec3.scale(v, 2.0)
+  let res = #(1.0, 1.0, 1.0)
+  v
   |> quaternion.axis_angle(32.12)
-  |> quaternion.rotate_vector(#(1.0, 1.0, 1.0))
-  |> quaternion.from_imaginary
-  |> quaternion.loosely_equals(Quaternion(0.0, #(1.0, 1.0, 1.0)), epsilon)
+  |> quaternion.rotate_vector(w)
+  |> vec3.loosely_equals(res, epsilon)
   |> should.equal(True)
 }
 
 pub fn euler_angles_test() {
-  quaternion.euler_angles(0.0, elementary.pi(), 0.0)
-  |> quaternion.rotate_vector(#(1.0, 1.0, 1.0))
-  |> quaternion.from_imaginary
-  |> quaternion.loosely_equals(Quaternion(0.0, #(-1.0, 1.0, -1.0)), epsilon)
+  let q = quaternion.euler_angles(0.0, elementary.pi(), 0.0)
+  let v = #(1.0, 1.0, 1.0)
+  let res = #(-1.0, 1.0, -1.0)
+  q
+  |> quaternion.rotate_vector(v)
+  |> vec3.loosely_equals(res, epsilon)
   |> should.equal(True)
 }
 
 pub fn axis_angle_test() {
-  #(1.0, 1.0, 1.0)
-  |> quaternion.axis_angle(elementary.pi())
-  |> quaternion.loosely_equals(Quaternion(0.0, #(0.577, 0.577, 0.577)), epsilon)
+  let v = #(1.0, 1.0, 1.0)
+  let angle = elementary.pi()
+  let res = Quaternion(0.0, #(0.577, 0.577, 0.577))
+  v
+  |> quaternion.axis_angle(angle)
+  |> quaternion.loosely_equals(res, epsilon)
   |> should.equal(True)
 }
