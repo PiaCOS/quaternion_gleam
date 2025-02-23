@@ -1,14 +1,18 @@
-# README
+# QUATERNION
 
 A simple quaternion implementation made with and for *Gleam*. Heavily inspired by the *Rust* [quaternion](https://github.com/PistonDevelopers/quaternion) crate.
 
-# Installation
+## Installation
 
-```
+```bash
 gleam add quaternion
 ```
 
-# License
+## Documentation
+
+The online documentation is available [here](https://hexdocs.pm/quaternion/).
+
+## License
 
 Licensed under either of:
 
@@ -16,6 +20,6 @@ Apache License, Version 2.0, (LICENSE-APACHE or http://www.apache.org/licenses/L
 MIT license (LICENSE-MIT or http://opensource.org/licenses/MIT)
 at your option.
 
-# Contribution
+## Contribution
 
 Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the work by you, as defined in the Apache-2.0 license, shall be dual licensed as above, without any additional terms or conditions.

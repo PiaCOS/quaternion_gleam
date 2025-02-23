@@ -17,6 +17,17 @@ pub type Quaternion {
   Quaternion(real: Float, imaginary: #(Float, Float, Float))
 }
 
+/// The multiplicative identity.
+/// 
+/// <details>
+///     <summary>Example:</summary>
+///
+///     Quaternion(1.0, #(2.0, 3.0, 4.0))
+///     |> quaternion.multiply(quaternion.id)
+///     |> quaternion.to_string
+///     // "1.0 + 2.0i + 3.0j + 4.0k"
+/// 
+/// </details> 
 pub const id = Quaternion(1.0, #(0.0, 0.0, 0.0))
 
 /// Constructs a Quaternion from a list of Floats.
