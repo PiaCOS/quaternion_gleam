@@ -269,7 +269,7 @@ pub fn normalize(q: Quaternion) -> Quaternion {
   scale(q, inv_length)
 }
 
-/// Rotates a 3D vector using a quaternion.
+/// Rotates a 3D vector using a quaternion (quaternion should be of norm 1.0).
 ///
 /// <details>
 ///     <summary>Example:</summary>

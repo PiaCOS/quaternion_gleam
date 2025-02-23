@@ -35,7 +35,7 @@ pub fn add_test() {
   q
   |> quaternion.add(r)
   |> quaternion.loosely_equals(res, epsilon)
-  |> should.equal(True)
+  |> should.be_true
 }
 
 pub fn substract_test() {
@@ -45,7 +45,7 @@ pub fn substract_test() {
   q
   |> quaternion.substract(r)
   |> quaternion.loosely_equals(res, epsilon)
-  |> should.equal(True)
+  |> should.be_true
 }
 
 pub fn times_test() {
@@ -55,7 +55,7 @@ pub fn times_test() {
   q
   |> quaternion.times(r)
   |> quaternion.loosely_equals(res, epsilon)
-  |> should.equal(True)
+  |> should.be_true
 }
 
 pub fn scale_test() {
@@ -64,7 +64,7 @@ pub fn scale_test() {
   q
   |> quaternion.scale(-0.5)
   |> quaternion.loosely_equals(res, epsilon)
-  |> should.equal(True)
+  |> should.be_true
 }
 
 pub fn dot_test() {
@@ -82,7 +82,7 @@ pub fn multiply_test() {
   q
   |> quaternion.multiply(r)
   |> quaternion.loosely_equals(res, epsilon)
-  |> should.equal(True)
+  |> should.be_true
 }
 
 pub fn conjugate_test() {
@@ -107,19 +107,19 @@ pub fn rotate_vector_test() {
   |> quaternion.axis_angle(elementary.pi())
   |> quaternion.rotate_vector(v_parallel)
   |> vec3.loosely_equals(res, epsilon)
-  |> should.equal(True)
+  |> should.be_true
 }
 
 /// When vectors are parallel the output vector should be the same
 pub fn rotate_vector_parallel_test() {
   let v = #(1.0, 1.0, 1.0)
-  let w = vec3.scale(v, 2.0)
+  let w = v
   let res = #(1.0, 1.0, 1.0)
   v
   |> quaternion.axis_angle(32.12)
   |> quaternion.rotate_vector(w)
   |> vec3.loosely_equals(res, epsilon)
-  |> should.equal(True)
+  |> should.be_true
 }
 
 pub fn euler_angles_test() {
@@ -129,7 +129,7 @@ pub fn euler_angles_test() {
   q
   |> quaternion.rotate_vector(v)
   |> vec3.loosely_equals(res, epsilon)
-  |> should.equal(True)
+  |> should.be_true
 }
 
 pub fn axis_angle_test() {
@@ -139,5 +139,5 @@ pub fn axis_angle_test() {
   v
   |> quaternion.axis_angle(angle)
   |> quaternion.loosely_equals(res, epsilon)
-  |> should.equal(True)
+  |> should.be_true
 }
