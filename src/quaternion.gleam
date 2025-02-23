@@ -17,6 +17,17 @@ pub type Quaternion {
   Quaternion(real: Float, imaginary: #(Float, Float, Float))
 }
 
+/// The multiplicative identity.
+/// 
+/// <details>
+///     <summary>Example:</summary>
+///
+///     Quaternion(1.0, #(2.0, 3.0, 4.0))
+///     |> quaternion.multiply(quaternion.id)
+///     |> quaternion.to_string
+///     // "1.0 + 2.0i + 3.0j + 4.0k"
+/// 
+/// </details> 
 pub const id = Quaternion(1.0, #(0.0, 0.0, 0.0))
 
 /// Constructs a Quaternion from a list of Floats.
@@ -258,7 +269,7 @@ pub fn normalize(q: Quaternion) -> Quaternion {
   scale(q, inv_length)
 }
 
-/// Rotates a 3D vector using a quaternion.
+/// Rotates a 3D vector using a quaternion (quaternion should be of norm 1.0).
 ///
 /// <details>
 ///     <summary>Example:</summary>
@@ -308,7 +319,7 @@ pub fn euler_angles(x: Float, y: Float, z: Float) -> Quaternion {
   ))
 }
 
-/// Constructs a quaternion representing the given angle (in radians) around the given axis
+/// Constructs the quaternion representing the given angle (in radians) around the given axis
 ///
 /// <details>
 ///     <summary>Example:</summary>
