@@ -319,7 +319,7 @@ pub fn euler_angles(x: Float, y: Float, z: Float) -> Quaternion {
   ))
 }
 
-/// Constructs a quaternion representing the given angle (in radians) around the given axis
+/// Constructs the quaternion representing the given angle (in radians) around the given axis
 ///
 /// <details>
 ///     <summary>Example:</summary>
