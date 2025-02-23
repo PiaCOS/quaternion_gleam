@@ -70,3 +70,10 @@ pub fn normalize(v: Vector3) -> Vector3 {
 pub fn orthogonal(v: Vector3) -> Vector3 {
   cross(v, #(v.0 +. 0.1, v.1, v.2))
 }
+
+/// Asserts if vector3 are loosely equals
+pub fn loosely_equals(v: Vector3, w: Vector3, epsilon: Float) -> Bool {
+  float.loosely_equals(v.0, w.0, epsilon)
+  && float.loosely_equals(v.1, w.1, epsilon)
+  && float.loosely_equals(v.2, w.2, epsilon)
+}
